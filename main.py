@@ -50,7 +50,7 @@ def list(message):
 @bot.message_handler(commands=["next"])
 def next_list_item(message):
     msg = bot.reply_to(message, """\
-Input your Next list item
+Input your ext list item
 """)
     bot.register_next_step_handler(msg, write_next_list_item)
 
@@ -61,7 +61,7 @@ def write_next_list_item(message):
         next_list_item = u'\U00002716'+ message.text
         add_item(next_list_item)
         index = str(len(db["todolist"]) + 1)
-        bot.send_message(message.chat.id, index + " - " + next_list_item)
+        bot.send_message(message.chat.id, ("has been added " + index + " - " + next_list_item))
     except Exception as e:
         bot.reply_to(message, e)
 
@@ -93,7 +93,7 @@ def check_list_item(message):
         chat_id = message.chat.id
         list_item = message.text
         check_item(list_item)
-        bot.send_message(message.chat.id, ("check " + str(list_item)))
+        bot.send_message(message.chat.id, ("has been checked #" + str(list_item)))
     except Exception as e:
         bot.reply_to(message, e)
 
@@ -116,7 +116,7 @@ def uncheck_list_item(message):
         chat_id = message.chat.id
         list_item = message.text
         uncheck_item(list_item)
-        bot.send_message(message.chat.id, ("uncheck " + str(list_item)))
+        bot.send_message(message.chat.id, ("has been unchecked # " + str(list_item)))
     except Exception as e:
         bot.reply_to(message, e)
 
