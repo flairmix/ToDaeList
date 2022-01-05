@@ -38,7 +38,7 @@ def help(message):
 def list(message):
 
     tx_output = ""
-    if len(db["todolist"]) > 0:
+    if db["todolist"] and len(db["todolist"]) > 0:
         for i in db["todolist"]:
             text = str(i) + " - " + db["todolist"].get(str(i)) + "\n"
             tx_output += text
@@ -49,9 +49,7 @@ def list(message):
 
 @bot.message_handler(commands=["next"])
 def next_list_item(message):
-    msg = bot.reply_to(message, """\
-Input your ext list item
-""")
+    msg = bot.reply_to(message, "Input next list item")
     bot.register_next_step_handler(msg, write_next_list_item)
 
 
@@ -60,7 +58,7 @@ def write_next_list_item(message):
         chat_id = message.chat.id
         next_list_item = u'\U00002716'+ message.text
         add_item(next_list_item)
-        index = str(len(db["todolist"]) + 1)
+        index = str(len(db["todolist"]) )
         bot.send_message(message.chat.id, ("has been added " + index + " - " + next_list_item))
     except Exception as e:
         bot.reply_to(message, e)
@@ -73,7 +71,7 @@ def add_item(item_text):
 
 @bot.message_handler(commands=["del_last"])
 def del_last(message):
-    if len(db["todolist"]) > 0:
+    if db["todolist"] and len(db["todolist"]) > 0:
         del db["todolist"][str(len(db["todolist"]))]
         bot.send_message(message.chat.id, "done")
     else:
@@ -82,9 +80,7 @@ def del_last(message):
 
 @bot.message_handler(commands=["check"])
 def check(message):
-    msg = bot.reply_to(message, """\
-Input number list item for "check"
-""")
+    msg = bot.reply_to(message, "Input number of item in list for \"check\"")
     bot.register_next_step_handler(msg, check_list_item)
 
 
