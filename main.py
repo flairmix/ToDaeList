@@ -73,7 +73,7 @@ def add_item(item_text):
 def del_last(message):
     if db["todolist"] and len(db["todolist"]) > 0:
         del db["todolist"][str(len(db["todolist"]))]
-        bot.send_message(message.chat.id, "done")
+        bot.send_message(message.chat.id, "last item has been deleted")
     else:
         bot.send_message(message.chat.id, "list_empty")
 
