@@ -1,7 +1,7 @@
 from replit import db
 import os
 import telebot
-from datetime import date, timedelta
+from datetime import date
 
 API_KEY = os.getenv("API_KEY")
 bot = telebot.TeleBot(API_KEY)
