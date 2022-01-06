@@ -116,10 +116,13 @@ def uncheck_list_item(message):
     except Exception as e:
         bot.reply_to(message, e)
 
+
 def uncheck_item(item):
     if str(item) in db["todolist"].keys():
-        text = u'\U00002716' + db["todolist"][str(item)][1:]
-        db["todolist"][str(item)] = text
+        if db["todolist"][str(item)].find(u'\U00002714') != -1:
+            text = u'\U00002716' + db["todolist"][str(item)][1:-12]
+            db["todolist"][str(item)] = text
+
 
 
 
