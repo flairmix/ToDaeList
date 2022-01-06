@@ -12,8 +12,8 @@ def help(message):
     \n\
     Лист комманд: \n\
     /list - Посмотреть список;\n\
-    /next - Добавить новую  строку;\n\
-        (нажать на /next -> ввести новую строку)\n\
+    /new - Добавить новую строку;\n\
+        (нажать на /new -> ввести новую строку)\n\
     \n\
     /check - Отметить \"галочкой\";\n\
     /uncheck - Отметить \"крестиком\";\n\
@@ -47,19 +47,19 @@ def list(message):
         bot.send_message(message.chat.id, "list_empty")
 
 
-@bot.message_handler(commands=["next"])
-def next_list_item(message):
-    msg = bot.reply_to(message, "Input next list's item")
-    bot.register_next_step_handler(msg, write_next_list_item)
+@bot.message_handler(commands=["new"])
+def new_list_item(message):
+    msg = bot.reply_to(message, "Input new list's item")
+    bot.register_next_step_handler(msg, write_new_list_item)
 
 
-def write_next_list_item(message):
+def write_new_list_item(message):
     try:
         chat_id = message.chat.id
-        next_list_item = u'\U00002716'+ message.text
-        add_item(next_list_item)
+        new_list_item = u'\U00002716'+ message.text
+        add_item(new_list_item)
         index = str(len(db["todolist"]) )
-        bot.send_message(message.chat.id, (f"Item #{index} has been added " + " - " + next_list_item))
+        bot.send_message(message.chat.id, (f"Item #{index} has been added " + " - " + new_list_item))
     except Exception as e:
         bot.reply_to(message, e)
 
