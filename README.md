@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./list-icon-1423.png" alt="minilogo" width="300" align="right">
+</p>
+
 # ToDaeList_tg_bot
 Telegram bot for light and handy TODO list
 
