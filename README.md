@@ -17,10 +17,10 @@ version = 0.1
 version_date = "2022/01/06"
  - only one list hardcodded 
  - able to:
- 	- show list of items
- 	- add new items in list (push)
+ 	 - show list of items
+ 	 - add new items in list (push)
 	 - delete last added item (pop)
- 	- check item with "check mark" by number in list
+ 	 - check item with "check mark" by number in list
 	 -  uncheck item with "uncheck mark" by number in list
 
  - new item added in list get "uncheck mark"
