@@ -1,7 +1,7 @@
 from replit import db
 import os
 import telebot
-# from datetime import date, timedelta
+from datetime import date, timedelta
 
 API_KEY = os.getenv("API_KEY")
 bot = telebot.TeleBot(API_KEY)
@@ -49,7 +49,7 @@ def list(message):
 
 @bot.message_handler(commands=["next"])
 def next_list_item(message):
-    msg = bot.reply_to(message, "Input next list item")
+    msg = bot.reply_to(message, "Input next list's item")
     bot.register_next_step_handler(msg, write_next_list_item)
 
 
@@ -59,7 +59,7 @@ def write_next_list_item(message):
         next_list_item = u'\U00002716'+ message.text
         add_item(next_list_item)
         index = str(len(db["todolist"]) )
-        bot.send_message(message.chat.id, ("has been added " + index + " - " + next_list_item))
+        bot.send_message(message.chat.id, (f"Item #{index} has been added " + " - " + next_list_item))
     except Exception as e:
         bot.reply_to(message, e)
 
@@ -89,20 +89,20 @@ def check_list_item(message):
         chat_id = message.chat.id
         list_item = message.text
         check_item(list_item)
-        bot.send_message(message.chat.id, ("has been checked #" + str(list_item)))
+        bot.send_message(message.chat.id, (f"Item #{list_item} has been checked" ))
     except Exception as e:
         bot.reply_to(message, e)
 
 def check_item(item):
     if str(item) in db["todolist"].keys():
-        text = u'\U00002714' + db["todolist"][str(item)][1:]
+        text = u'\U00002714' + db["todolist"][str(item)][1:] + " [" + date.today().strftime('%Y/%m/%d') + "]"
         db["todolist"][str(item)] = text
 
 
 @bot.message_handler(commands=["uncheck"])
 def uncheck(message):
     msg = bot.reply_to(message, """\
-Input number list item for "uncheck"
+Input number list's item for "uncheck"
 """)
     bot.register_next_step_handler(msg, uncheck_list_item)
 
@@ -112,7 +112,7 @@ def uncheck_list_item(message):
         chat_id = message.chat.id
         list_item = message.text
         uncheck_item(list_item)
-        bot.send_message(message.chat.id, ("has been unchecked # " + str(list_item)))
+        bot.send_message(message.chat.id, (f" Item {list_item} has been unchecked"))
     except Exception as e:
         bot.reply_to(message, e)
 
@@ -120,6 +120,7 @@ def uncheck_item(item):
     if str(item) in db["todolist"].keys():
         text = u'\U00002716' + db["todolist"][str(item)][1:]
         db["todolist"][str(item)] = text
+
 
 
 bot.polling()
