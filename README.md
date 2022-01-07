@@ -15,7 +15,7 @@ Addition packages:
 
 version = 0.1
 version_date = "2022/01/06"
- - only one list hardcodded 
+ - only one list hardcoded 
  - able to:
  	 - show list of items
  	 - add new items in list (push)
